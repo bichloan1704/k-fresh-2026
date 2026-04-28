@@ -1,5 +1,5 @@
 import test, { expect, Page } from '@playwright/test';
-import { User } from '../models/user';
+import { User, UserProfile } from '../models/user';
 import { Constants } from '../utilities/constants';
 import { Messages } from '../data/messages.data';
 import { LoginLocators } from '../locators/login-locators';
@@ -20,7 +20,7 @@ export class LoginPage extends LoginLocators {
    * @param user An object containing the username and password for login.
    */
   @step('Log in with user credentials')
-  async login(user: User): Promise<void> {
+  async login(user: UserProfile): Promise<void> {
     await test.step(`Log in with username: ${user.email}`, async () => {
       await this.page.goto(Constants.LOGIN_URL);
       await this.inputEmail.fill(user.email);

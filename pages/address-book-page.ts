@@ -52,6 +52,7 @@ export class AddressBookPage extends AddressBookLocators {
       await this.commonPage.selectOption(this.countryDropdown, address.country);
       await this.commonPage.isVisible(this.regionDropdown);
       await this.commonPage.selectOption(this.regionDropdown, address.region);
+      await this.commonPage.click(this.btnRadio('0'));
     });
   }
 

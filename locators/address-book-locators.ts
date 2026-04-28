@@ -42,7 +42,7 @@ export class AddressBookLocators extends CommonLocators {
   /**
     * Default address radio by value
   */
-  defaultRadio(option: '1' | '0'): Locator {
+  btnRadio(option: '1' | '0'): Locator {
     return this.page.locator(
       `//input[@name="default" and @value="${option}"]`
     );
