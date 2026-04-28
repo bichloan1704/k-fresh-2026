@@ -3,13 +3,16 @@ import { AddressBookLocators } from '../locators/address-book-locators';
 import { Address } from '../models/address';
 import { CommonPage } from './common-page';
 import { step } from '../utilities/logging';
+import { AssertHelper } from './assert-helper-page';
 
 export class AddressBookPage extends AddressBookLocators {
   commonPage: CommonPage;
+  assertHelper: AssertHelper;
 
   constructor(page: Page) {
     super(page);
     this.commonPage = new CommonPage(page);
+    this.assertHelper = new AssertHelper();
   }
 
   /**
@@ -46,9 +49,9 @@ export class AddressBookPage extends AddressBookLocators {
       await this.commonPage.fill(this.inputCity, address.city);
       await this.commonPage.fill(this.inputPostCode, address.postCode);
 
-      await this.selectCountryRegion('country_id').selectOption({ label: address.country });
-      await expect(this.selectCountryRegion('zone_id')).toBeEnabled();
-      await this.selectCountryRegion('zone_id').selectOption({ label: address.region });
+      await this.commonPage.selectOption(this.countryDropdown, address.country);
+      await this.commonPage.isVisible(this.regionDropdown);
+      await this.commonPage.selectOption(this.regionDropdown, address.region);
     });
   }
 
@@ -78,7 +81,8 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Verifying address added successfully')
   async verifySuccess(): Promise<void> {
     await test.step('Verifying address added successfully', async () => {
-      await expect(this.lblMessage('success')).toContainText(
+      await this.assertHelper.assertElementContainsText(
+        this.lblMessage('success'),
         'Your address has been successfully added'
       );
     });
@@ -142,11 +146,10 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Verifying address updated successfully')
   async verifyUpdateSuccess(): Promise<void> {
-    await test.step('Verifying address updated successfully', async () => {
-      await expect(this.lblMessage('success')).toContainText(
-        'Your address has been successfully updated'
-      );
-    })
+    await this.assertHelper.assertElementContainsText(
+      this.lblMessage('success'),
+      'Your address has been successfully updated'
+    );
   }
 
   /**
@@ -164,7 +167,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Click Delete button of the default address')
   async clickDelDefaultAddress(): Promise<void> {
     await test.step('Click Delete button of the first address', async () => {
-      await this.actionButton('delete').first().click();
+      await this.actionButton('Delete').first().click();
     });
   }
 
@@ -174,9 +177,10 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Verifying address deleted successfully')
   async verifyDeleteSuccess(): Promise<void> {
     await test.step('Verifying address deleted successfully', async () => {
-      await expect(this.lblMessage('success')).toContainText(
+      await this.assertHelper.assertElementContainsText(
+        this.lblMessage('success'),
         'Your address has been successfully deleted'
-      );
+      );  
     })
   }
 
@@ -185,7 +189,8 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Verifying default address cannot be deleted')
   async verifyDeleteFail(): Promise<void> {
-    await expect(this.lblMessage('warning')).toContainText(
+    await this.assertHelper.assertElementContainsText(
+      this.lblMessage('danger'),
       'Warning: You can not delete your default address!'
     );
   }

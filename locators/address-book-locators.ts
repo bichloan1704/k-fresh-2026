@@ -14,6 +14,8 @@ export class AddressBookLocators extends CommonLocators {
   inputAddress2!: Locator;
   inputCity!: Locator;
   inputPostCode!: Locator;
+  countryDropdown!: Locator;
+  regionDropdown!: Locator;
   btnBack!: Locator;
   lnkAddressBook!: Locator;
 
@@ -26,30 +28,15 @@ export class AddressBookLocators extends CommonLocators {
     this.inputAddress2 = this.page.locator('//input[@name="address_2"]');
     this.inputCity = this.page.locator('//input[@name="city"]');
     this.inputPostCode = this.page.locator('//input[@name="postcode"]');
-    this.lnkAddressBook = this.page.locator('//a[contains(normalize-space(.), "Address Book")]'
-);
+    this.lnkAddressBook = this.page.locator('//a[contains(normalize-space(.), "Address Book")]');
+    this.countryDropdown = this.page.locator('//select[@name="country_id"]');
+    this.regionDropdown = this.page.locator('//select[@name="zone_id"]');
   }
-  /**
-   * Get dropdown option by label
-   */
-  getDropdownOption(selectName: string): Locator {
-    return this.page.locator(`//select[@name="${selectName}"]`);
-  }
-
   /**
     * Button back, edit, delete by text
   */
   actionButton(text: string): Locator {
     return this.page.locator(`//a[contains(text(),"${text}")]`);
-  }
-
-  /**
-    * Country and Region option by label
-  */
-  selectCountryRegion(selectName: 'country_id' | 'zone_id'): Locator {
-    return this.page.locator(
-      `//select[@name="${selectName}"]`
-    );
   }
 
   /**

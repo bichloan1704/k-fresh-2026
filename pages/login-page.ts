@@ -25,7 +25,7 @@ export class LoginPage extends LoginLocators {
       await this.page.goto(Constants.LOGIN_URL);
       await this.inputEmail.fill(user.email);
       await this.inputPassword.fill(user.password);
-      await this.commonPage.btnSubmit.click();
+      await this.commonPage.click(this.btnSubmit);
     });
   }
   
