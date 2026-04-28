@@ -83,27 +83,44 @@ export class AddressBookPage extends AddressBookLocators {
       );
     });
   }
-  
+
   /**
  * Verify failure message
  */
   @step('Verify required field validation messages')
   async verifyRequiredFieldErrors(): Promise<void> {
-    await expect(this.lblMessageError('firstname')).toHaveText(
-      'First Name must be between 1 and 32 characters!'
-    );
+    const requiredFields = [
+      {
+        locator: this.lblMessageError('firstname'),
+        fieldKey: 'First Name',
+        min: 1,
+        max: 32,
+      },
+      {
+        locator: this.lblMessageError('lastname'),
+        fieldKey: 'Last Name',
+        min: 1,
+        max: 32,
+      },
+      {
+        locator: this.lblMessageError('address_1'),
+        fieldKey: 'Address',
+        min: 3,
+        max: 128,
+      },
+      {
+        locator: this.lblMessageError('city'),
+        fieldKey: 'City',
+        min: 2,
+        max: 128,
+      },
+    ];
 
-    await expect(this.lblMessageError('lastname')).toHaveText(
-      'Last Name must be between 1 and 32 characters!'
-    );
-
-    await expect(this.lblMessageError('address_1')).toHaveText(
-      'Address must be between 3 and 128 characters!'
-    );
-
-    await expect(this.lblMessageError('city')).toHaveText(
-      'City must be between 2 and 128 characters!'
-    );
+    for (const field of requiredFields) {
+      await expect(field.locator).toHaveText(
+        `${field.fieldKey} must be between ${field.min} and ${field.max} characters!`
+      );
+    }
 
     await expect(this.regionError()).toHaveText(
       'Please select a region / state!'
