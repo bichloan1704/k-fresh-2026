@@ -38,5 +38,4 @@ export class Constants {
   static readonly LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || '';
   static readonly USERS_JSON_FILE = './data/users.json';
   static readonly PRODUCT_JSON_FILE = './data/product.json';
-  static readonly ADDRESS_BOOK_URL = `${Constants.BASE_URL}/index.php?route=account/address`;
 }

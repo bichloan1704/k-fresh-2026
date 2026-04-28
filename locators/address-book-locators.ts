@@ -1,7 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { CommonLocators } from './common-locators';
 
-
 export class AddressBookLocators extends CommonLocators {
 
   constructor(page: Page) {
@@ -16,6 +15,7 @@ export class AddressBookLocators extends CommonLocators {
   inputCity!: Locator;
   inputPostCode!: Locator;
   btnBack!: Locator;
+  lnkAddressBook!: Locator;
 
   locatorsInitialization(): void {
     super.locatorInitialization();
@@ -26,6 +26,8 @@ export class AddressBookLocators extends CommonLocators {
     this.inputAddress2 = this.page.locator('//input[@name="address_2"]');
     this.inputCity = this.page.locator('//input[@name="city"]');
     this.inputPostCode = this.page.locator('//input[@name="postcode"]');
+    this.lnkAddressBook = this.page.locator('//a[contains(normalize-space(.), "Address Book")]'
+);
   }
   /**
    * Get dropdown option by label

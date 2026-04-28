@@ -3,7 +3,6 @@ import { AddressBookLocators } from '../locators/address-book-locators';
 import { Address } from '../models/address';
 import { CommonPage } from './common-page';
 import { step } from '../utilities/logging';
-import { Constants } from '../utilities/constants';
 
 export class AddressBookPage extends AddressBookLocators {
   commonPage: CommonPage;
@@ -19,7 +18,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Navigating to Address Book page')
   async goto(): Promise<void> {
     await test.step('Navigating to Address Book page', async () => {
-      await this.commonPage.goto(Constants.ADDRESS_BOOK_URL);
+      await this.commonPage.click(this.lnkAddressBook);
     });
   }
 
@@ -29,7 +28,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Clicking New Address button')
   async clickNewAddress(): Promise<void> {
     await test.step('Clicking New Address button', async () => {
-      await this.commonPage.btnAddNew.click();
+      await this.commonPage.click(this.btnAddNew);
     });
   }
 
@@ -39,13 +38,13 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Filling address information')
   async fillAddressForm(address: Address): Promise<void> {
     await test.step('Filling address information', async () => {
-      await this.inputFirstName.fill(address.firstName);
-      await this.inputLastName.fill(address.lastName);
-      await this.inputCompany.fill(address.company);
-      await this.inputAddress1.fill(address.address1);
-      await this.inputAddress2.fill(address.address2);
-      await this.inputCity.fill(address.city);
-      await this.inputPostCode.fill(address.postCode);
+      await this.commonPage.fill(this.inputFirstName, address.firstName);
+      await this.commonPage.fill(this.inputLastName, address.lastName);
+      await this.commonPage.fill(this.inputCompany, address.company);
+      await this.commonPage.fill(this.inputAddress1, address.address1);
+      await this.commonPage.fill(this.inputAddress2, address.address2);
+      await this.commonPage.fill(this.inputCity, address.city);
+      await this.commonPage.fill(this.inputPostCode, address.postCode);
 
       await this.selectCountryRegion('country_id').selectOption({ label: address.country });
       await expect(this.selectCountryRegion('zone_id')).toBeEnabled();
@@ -59,7 +58,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Leaving all fields blank and submitting the form')
   async submitEmptyAddressForm(): Promise<void> {
     await test.step('Leaving all fields blank and submitting the form', async () => {
-      await this.commonPage.btnSubmit.click();
+      await this.commonPage.click(this.btnSubmit);
     });
   }
 
@@ -69,7 +68,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Submitting address form')
   async clickSubmit(): Promise<void> {
     await test.step('Submitting address form', async () => {
-      await this.commonPage.btnSubmit.click();
+      await this.commonPage.click(this.btnSubmit);
     });
   }
 
@@ -117,7 +116,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Clicking Edit button of the first address')
   async clickEditFirstAddress(): Promise<void> {
     await test.step('Click edit button of the first address', async () => {
-      await this.btnEdit.first().click();
+      await this.commonPage.click(this.btnEdit);
     });
   }
 
@@ -139,9 +138,7 @@ export class AddressBookPage extends AddressBookLocators {
   @step('Click Delete button of the last address')
   async clickDeleteLastAddress(): Promise<void> {
     await test.step('Click Delete button of the last address', async () => {
-      const total = await this.actionButton('delete').count();
-
-      await this.actionButton('delete').nth(total - 1).click();
+      await this.actionButton('Delete').last().click();
     });
   }
   /**
