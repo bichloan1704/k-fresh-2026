@@ -22,9 +22,9 @@ export class LoginPage extends LoginLocators {
   @step('Log in with user credentials')
   async login(user: UserProfile): Promise<void> {
     await test.step(`Log in with username: ${user.email}`, async () => {
-      await this.page.goto(Constants.LOGIN_URL);
-      await this.inputEmail.fill(user.email);
-      await this.inputPassword.fill(user.password);
+      await this.commonPage.goto(Constants.LOGIN_URL);
+      await this.commonPage.fill(this.inputEmail, user.email);
+      await this.commonPage.fill(this.inputPassword, user.password));
       await this.commonPage.click(this.btnSubmit);
     });
   }
