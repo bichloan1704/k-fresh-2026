@@ -39,19 +39,19 @@ test.describe('Address Book', () => {
     });
 
     test('TC_03 - Edit existing address successfully', async ({ addressBookPage }) => {
-      await addressBookPage.clickEditFirstAddress();
+      await addressBookPage.clickEditAddress();
       await addressBookPage.fillAddressForm(generateAddressData());
       await addressBookPage.clickSubmit();
       await addressBookPage.verifyUpdateSuccess();
     });
 
     test('TC_04 - Delete existing address successfully', async ({ addressBookPage }) => {
-      await addressBookPage.clickDeleteLastAddress();
+      await addressBookPage.clickDeleteAddress();
       await addressBookPage.verifyCannotDelete();
     });
 
     test('TC_05 - Delete default address failure', async ({ addressBookPage }) => {
-      await addressBookPage.clickDelDefaultAddress();
+      await addressBookPage.clickDeleteAddress();
       await addressBookPage.verifyCannotDelete();
     });
   });

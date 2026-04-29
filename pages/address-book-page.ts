@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { AddressBookLocators } from '../locators/address-book-locators';
 import { Address } from '../models/address';
 import { CommonPage } from './common-page';
@@ -20,9 +20,7 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Navigating to Address Book page')
   async goto(): Promise<void> {
-    await test.step('Navigating to Address Book page', async () => {
-      await this.commonPage.click(this.lnkAddressBook);
-    });
+    await this.commonPage.click(this.lnkAddressBook);
   }
 
   /**
@@ -30,9 +28,7 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Clicking New Address button')
   async clickNewAddress(): Promise<void> {
-    await test.step('Clicking New Address button', async () => {
-      await this.commonPage.click(this.btnAddNew);
-    });
+    await this.commonPage.click(this.btnAddNew);
   }
 
   /**
@@ -41,30 +37,19 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Filling address information')
   async fillAddressForm(address: Address): Promise<void> {
-    await test.step('Filling address information', async () => {
-      await this.commonPage.fill(this.inputFirstName, address.firstName);
-      await this.commonPage.fill(this.inputLastName, address.lastName);
-      await this.commonPage.fill(this.inputCompany, address.company);
-      await this.commonPage.fill(this.inputAddress1, address.address1);
-      await this.commonPage.fill(this.inputAddress2, address.address2);
-      await this.commonPage.fill(this.inputCity, address.city);
-      await this.commonPage.fill(this.inputPostCode, address.postCode);
+    await this.commonPage.fill(this.inputFirstName, address.firstName);
+    await this.commonPage.fill(this.inputLastName, address.lastName);
+    await this.commonPage.fill(this.inputCompany, address.company);
+    await this.commonPage.fill(this.inputAddress1, address.address1);
+    await this.commonPage.fill(this.inputAddress2, address.address2);
+    await this.commonPage.fill(this.inputCity, address.city);
+    await this.commonPage.fill(this.inputPostCode, address.postCode);
 
-      await this.commonPage.selectOption(this.countryDropdown, address.country);
-      await this.commonPage.isVisible(this.regionDropdown);
-      await this.commonPage.selectOption(this.regionDropdown, address.region);
-      await this.commonPage.click(this.btnRadio('0'));
-    });
-  }
-
-  /**
-   * Leaving all fields blank 
-   */
-  @step('Leaving all fields blank and submitting the form')
-  async submitEmptyAddressForm(): Promise<void> {
-    await test.step('Leaving all fields blank and submitting the form', async () => {
-      await this.commonPage.click(this.btnSubmit);
-    });
+    await this.commonPage.selectOption(this.countryDropdown, address.country);
+    await this.commonPage.isVisible(this.regionDropdown);
+    await this.commonPage.selectOption(this.regionDropdown, address.region);
+    // Click the radio no = 0, yes = 1
+    await this.commonPage.click(this.btnRadio('0'));
   }
 
   /**
@@ -72,9 +57,7 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Submitting address form')
   async clickSubmit(): Promise<void> {
-    await test.step('Submitting address form', async () => {
-      await this.commonPage.click(this.btnSubmit);
-    });
+    await this.commonPage.click(this.btnSubmit);
   }
 
   /**
@@ -82,12 +65,10 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Verifying address added successfully')
   async verifySuccess(): Promise<void> {
-    await test.step('Verifying address added successfully', async () => {
-      await this.assertHelper.assertElementContainsText(
-        this.lblMessage('success'),
-        'Your address has been successfully added'
-      );
-    });
+    await this.assertHelper.assertElementContainsText(
+      this.lblMessage('success'),
+      'Your address has been successfully added'
+    );
   }
 
   /**
@@ -134,13 +115,11 @@ export class AddressBookPage extends AddressBookLocators {
   }
 
   /**
-   * Click Edit button of the first address in the list
+   * Click Edit button of the address in the list
    */
-  @step('Clicking Edit button of the first address')
-  async clickEditFirstAddress(): Promise<void> {
-    await test.step('Click edit button of the first address', async () => {
-      await this.commonPage.click(this.btnEdit);
-    });
+  @step('Clicking Edit button of the address')
+  async clickEditAddress(): Promise<void> {
+    await this.commonPage.click(this.btnEdit);
   }
 
   /**
@@ -157,20 +136,10 @@ export class AddressBookPage extends AddressBookLocators {
   /**
  * Click Delete button of the address in the list
  */
-  @step('Click Delete button of the last address')
-  async clickDeleteLastAddress(): Promise<void> {
-    await test.step('Click Delete button of the last address', async () => {
-      await this.actionButton('Delete').last().click();
-    });
-  }
-  /**
-* Click Delete button of the address in the list
-*/
-  @step('Click Delete button of the default address')
-  async clickDelDefaultAddress(): Promise<void> {
-    await test.step('Click Delete button of the first address', async () => {
-      await this.actionButton('Delete').first().click();
-    });
+  @step('Click Delete button of the address')
+  async clickDeleteAddress(): Promise<void> {
+    await this.commonPage.click(this.actionButton('Delete'));
+
   }
 
   /**
@@ -178,32 +147,19 @@ export class AddressBookPage extends AddressBookLocators {
    */
   @step('Verifying address deleted successfully')
   async verifyDeleteSuccess(): Promise<void> {
-    await test.step('Verifying address deleted successfully', async () => {
-      await this.assertHelper.assertElementContainsText(
-        this.lblMessage('success'),
-        'Your address has been successfully deleted'
-      );  
-    })
-  }
-
-  /** 
-   * Verify default address cannot be deleted
-   */
-  @step('Verifying default address cannot be deleted')
-  async verifyDeleteFail(): Promise<void> {
     await this.assertHelper.assertElementContainsText(
-      this.lblMessage('danger'),
-      'Warning: You can not delete your default address!'
+      this.lblMessage('success'),
+      'Your address has been successfully deleted'
     );
   }
 
-/** 
-   * Verify address cannot be deleted when just one address exists
-   */
+  /** 
+  * Verify address cannot be deleted when just one address exists
+  */
   @step('Verifying cannot address cannot be deleted when just one address exists')
   async verifyCannotDelete(): Promise<void> {
     await this.assertHelper.assertElementContainsText(
-      this.lblMessage('danger'),
+      this.lblMessage('warning'),
       ' Warning: You must have at least one address!'
     );
   }

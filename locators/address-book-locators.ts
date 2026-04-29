@@ -32,43 +32,24 @@ export class AddressBookLocators extends CommonLocators {
     this.countryDropdown = this.page.locator('//select[@name="country_id"]');
     this.regionDropdown = this.page.locator('//select[@name="zone_id"]');
   }
-  /**
-    * Button back, edit, delete by text
-  */
   actionButton(text: string): Locator {
     return this.page.locator(`//a[contains(text(),"${text}")]`);
   }
-
-  /**
-    * Default address radio by value
-  */
   btnRadio(option: '1' | '0'): Locator {
     return this.page.locator(
       `//input[@name="default" and @value="${option}"]`
     );
   }
-
-  /**
-    * Error message for required fields
-  */
   lblMessageError(field: string): Locator {
     return this.page.locator(
       `//input[@name="${field}"]/following-sibling::div[contains(@class,"text-danger")]`
     );
   }
-
-  /**
-    * Failue message for region fields
-  */
   regionError(): Locator {
     return this.page.locator(
       '//select[@name="zone_id"]/../div[contains(@class,"text-danger")]'
     );
   }
-
-  /**
-   * Label message
-   */
   lblMessage(text: string): Locator {
     return this.page.locator(`.alert-${text}`).first();
   }
