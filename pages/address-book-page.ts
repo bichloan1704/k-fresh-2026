@@ -37,6 +37,7 @@ export class AddressBookPage extends AddressBookLocators {
 
   /**
    * Fill address form
+   * @param address - The address data to fill in the form
    */
   @step('Filling address information')
   async fillAddressForm(address: Address): Promise<void> {
@@ -193,6 +194,17 @@ export class AddressBookPage extends AddressBookLocators {
     await this.assertHelper.assertElementContainsText(
       this.lblMessage('danger'),
       'Warning: You can not delete your default address!'
+    );
+  }
+
+/** 
+   * Verify address cannot be deleted when just one address exists
+   */
+  @step('Verifying cannot address cannot be deleted when just one address exists')
+  async verifyCannotDelete(): Promise<void> {
+    await this.assertHelper.assertElementContainsText(
+      this.lblMessage('danger'),
+      ' Warning: You must have at least one address!'
     );
   }
 }

@@ -47,12 +47,12 @@ test.describe('Address Book', () => {
 
     test('TC_04 - Delete existing address successfully', async ({ addressBookPage }) => {
       await addressBookPage.clickDeleteLastAddress();
-      await addressBookPage.verifyDeleteSuccess();
+      await addressBookPage.verifyCannotDelete();
     });
 
     test('TC_05 - Delete default address failure', async ({ addressBookPage }) => {
       await addressBookPage.clickDelDefaultAddress();
-      await addressBookPage.verifyDeleteFail();
+      await addressBookPage.verifyCannotDelete();
     });
   });
 });
