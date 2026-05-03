@@ -1,4 +1,3 @@
-import { Page } from '@playwright/test';
 import { expect, Page } from '@playwright/test';
 import { AddressBookLocators } from '../locators/address-book-locators';
 import { Address } from '../models/address';
