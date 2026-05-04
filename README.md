@@ -21,24 +21,26 @@ https://ecommerce-playground.lambdatest.io/
 
 # Project Structure
 
-├── .github/                # GitHub workflows and configurations
-├── data/                   # Test data files
-├── documents/              # Project documents and reports
-├── locators/               # Locator definitions
-├── models/                 # Data models/interfaces
-├── pages/                  # Page Object classes
-├── profiles/               # Environment/profile configurations
-├── tests/ui/               # UI test cases
-├── utilities/              # Helper functions and utilities
-├── .gitignore
-├── README.md
-├── SECURITY.md
-├── env.loader.ts           # Environment loader
-├── eslint.config.mjs       # ESLint configuration
-├── package-lock.json
-├── package.json
-├── playwright.config.ts    # Playwright configuration
-├── tsconfig.json
+| Folder/File | Description |
+|---|---|
+| `.github/` | GitHub workflows and CI/CD configurations |
+| `data/` | Test data files |
+| `documents/` | Project documents and reports |
+| `locators/` | Locator definitions for UI elements |
+| `models/` | Data models and interfaces |
+| `pages/` | Page Object Model (POM) classes |
+| `profiles/` | Environment and profile configurations |
+| `tests/ui/` | UI test cases |
+| `utilities/` | Helper functions and reusable utilities |
+| `.gitignore` | Git ignored files configuration |
+| `README.md` | Project documentation |
+| `SECURITY.md` | Security policy documentation |
+| `env.loader.ts` | Environment loader configuration |
+| `eslint.config.mjs` | ESLint configuration file |
+| `package-lock.json` | Locked dependency versions |
+| `package.json` | Project metadata and npm scripts |
+| `playwright.config.ts` | Playwright test configuration |
+| `tsconfig.json` | TypeScript configuration |
 ```
 
 ---
@@ -196,6 +198,15 @@ Generate locators and test actions automatically:
 
 ```bash
 npm run codegen
+```
+---
+
+# Allure Report
+
+Open and view the Allure test report:
+
+```bash
+allure serve ./allure-results
 ```
 
 ---
