@@ -77,7 +77,7 @@ The automation test suite covers major functionalities such as:
 
 Before running this project, make sure the following are installed:
 
-- Node.js (>= 18 recommended)
+- Node.js (>= 18, LTS v24.x recommended, Latest v25.x supported)
 - npm
 
 Check installed versions:
