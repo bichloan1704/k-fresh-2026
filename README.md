@@ -41,7 +41,6 @@ https://ecommerce-playground.lambdatest.io/
 | `package.json` | Project metadata and npm scripts |
 | `playwright.config.ts` | Playwright test configuration |
 | `tsconfig.json` | TypeScript configuration |
-```
 
 ---
 
